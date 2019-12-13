@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/reaganiwadha/bookrest/dao"
+	"github.com/reaganiwadha/bookrest/config"
 )
 
 var dao = BookDAO{}
