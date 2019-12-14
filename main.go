@@ -10,6 +10,7 @@ import (
 var r *mux.Route
 
 func main() {
+	config.ThisExportedFunction()
 	r := mux.NewRouter()
-	http.Handle("/",r)
+	http.Handle("/", r)
 }

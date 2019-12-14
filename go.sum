@@ -2,3 +2,5 @@ github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/gorilla/mux v1.7.3 h1:gnP5JzjVOuiZD07fKKToCAOjS0yOpj/qPETTXCCS6hw=
 github.com/gorilla/mux v1.7.3/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
+github.com/reaganiwadha/bookrest/config v0.0.0-20191213124019-f8c003801da8 h1:plWpllhMcPeI3H2V2TzZ4+ZcOI/kR7/sATW/NMWYc2A=
+github.com/reaganiwadha/bookrest/config v0.0.0-20191213124019-f8c003801da8/go.mod h1:AAScNDZDaOr28sHnjfAlYUrA9BkPaWq9jldOdg48hYU=
