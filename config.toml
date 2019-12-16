@@ -1,0 +1,4 @@
+Port = 39822
+Database = "bookrest"
+DatabaseConnectionString = "mongodb://localhost:27017/admin"
+BooksCollection = "book"
