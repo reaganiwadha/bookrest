@@ -6,7 +6,7 @@ ENV BOOKREST_DATABASE bookrest
 ENV BOOKREST_DB_PORT 27017
 
 # Change this to whatever your bookrest_mongo container name is
-ENV BOOKREST_DB_HOST recursing_haslett
+ENV BOOKREST_DB_HOST bookrest_mongo
 # Remember to link it afterwards
 
 ENV BOOKREST_DB_USERNAME ""
