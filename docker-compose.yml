@@ -1,0 +1,14 @@
+version: "2"
+services:
+  web:
+    container_name: bookrest
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+  mongo:
+    container_name: bookrest_mongo
+    image: bookrest_mongo
+    ports:
+      - "27017:27017"

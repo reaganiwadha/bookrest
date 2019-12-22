@@ -13,7 +13,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
+	"time"
 
 	"github.com/BurntSushi/toml"
 	"github.com/common-nighthawk/go-figure"
@@ -46,10 +48,10 @@ type NewBook struct {
 
 // BookrestConfig ... the config for this server
 type BookrestConfig struct {
-	Port                     int
-	Database                 string
-	DatabaseConnectionString string
-	BooksCollection          string
+	Port            int
+	Database        string
+	ConnectInfo     mgo.DialInfo
+	BooksCollection string
 }
 
 // Issuer ... who's issuing the book?
@@ -72,7 +74,7 @@ func AllBooksEndpoint(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	RespondWithJSON(w, http.StatusOK, books)
 }
 
@@ -159,7 +161,7 @@ func TopBookEndpoint(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	RespondWithJSON(w, http.StatusOK, books)
 }
 
@@ -214,8 +216,34 @@ func init() {
 		log.Fatal(err)
 	}
 
+	if os.Getenv("BOOKREST_PORT") != "" {
+		port, err := strconv.Atoi(os.Getenv("BOOKREST_PORT"))
+		if err != nil {
+			log.Fatal(err)
+		}
+		config.Port = port
+		println("Using port " + strconv.Itoa(port))
+	} else {
+		println("BOOKREST_PORT envar is empty, using default!")
+	}
+
+	if os.Getenv("BOOKREST_BOOKS_COLLECTION") != "" {
+		config.Database = os.Getenv("BOOKREST_BOOKS_COLLECTION")
+		println("Using database " + config.Database)
+	} else {
+		println("BOOKREST_BOOKS_COLLECTION envar is empty, using default!")
+	}
+
+	config.ConnectInfo = mgo.DialInfo{
+		Addrs:    []string{os.Getenv("BOOKREST_DB_HOST")},
+		Timeout:  60 * time.Second,
+		Database: os.Getenv("BOOKREST_DATABASE"),
+		Username: os.Getenv("BOOKREST_DB_USERNAME"),
+		Password: os.Getenv("BOOKREST_DB_PASSWORD"),
+	}
+
 	//Dials the database
-	session, err := mgo.Dial(config.DatabaseConnectionString)
+	session, err := mgo.DialWithInfo(&config.ConnectInfo)
 	if err != nil {
 		log.Fatal(err)
 	}
